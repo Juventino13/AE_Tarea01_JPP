@@ -52,11 +52,45 @@ const deleteById  = (req,res)=>{
         res.json
     })
 }
-module.exports = (User) => {
+
+const DeleteById = (req,res) =>{
+    const {id} = req.params;//const id = req.params.id;
+
+    const params = {
+        _id:id
+    }
+
+    _user.findByIdAndRemove(id)
+        .then((data)=>{
+            res.status(status.OK);
+            res.json({msg:"Exito",data:data});
+        })
+        .catch((err)=>{
+            res.status(status.NOT_FOUND);
+            res.json({msg:"No se encontro"});
+        })
+}
+
+const updateUsuario = (req,res) =>{
+    const {id} = req.params;
+
+    _user.update({_id:id},{$set:req.body})
+        .then((data)=>{
+            res.status(status.OK);
+            res.json({msg:"Usuario actualizado", data:data});
+        })
+        .catch((err)=>{
+            res.status(status.NOT_FOUND);
+            res.json({msg:"Error",data:err});
+        });        
+}
+module.exports = (User)=>{
     _user = User;
     return({
         createUser,
         findAll,
-        deleteById     
+        DeleteById,
+        findId,
+        updateUsuario
     });
 }
