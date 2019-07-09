@@ -10,7 +10,7 @@ const createBrand = (req, res) => {
     _user.create(brand)
         .then((data)=> {
             res.status(200);
-            res.json({msg:"Brand creada correctamente", data: data});
+            res.json({msg:"Marca creada", data: data});
         })
         .catch((err)=> {
             res.status(400);
